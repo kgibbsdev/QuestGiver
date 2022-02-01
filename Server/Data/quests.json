@@ -1,0 +1,16 @@
+{
+  "Quests": [
+    {
+      "Id": 1,
+      "Name": "Clean The Hogs",
+      "Description": "Scrub those piggies clean now",
+      "IsCompleted": false
+    },
+    {
+      "Id": 2,
+      "Name": "Chase away the geese!",
+      "Description": "Hey now! Go on, get!",
+      "IsCompleted": false
+    }
+  ]
+}

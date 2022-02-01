@@ -1,0 +1,34 @@
+﻿@page "/quests"
+@using QuestGiver.Shared
+@inject HttpClient Http
+
+<h3>Quests</h3>
+
+@if(quests == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @foreach (var quest in quests)
+       {
+           <div>
+               Name: @quest.Name,
+               Description: @quest.Description,
+               Id: @quest.Id,
+               IsComplete: @quest.IsComplete
+
+           </div>
+       }
+    </div>
+}
+
+@code {
+    public Quest[] quests;
+
+    protected override async Task OnInitializedAsync()
+    {
+        quests = await Http.GetFromJsonAsync<Quest[]>("api/Quests");
+    }
+}
