@@ -4,6 +4,8 @@ using QuestGiver.Shared;
 using System.Text.Json;
 using System.IO;
 using System.Reflection;
+using QuestGiver.Server.Utilities;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,14 +19,14 @@ namespace QuestGiver.Server.Controllers
         [HttpGet]
         public IEnumerable<Quest> Get()
         {
-            var outputDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var outputFile = Path.Combine(outputDirectory, "Data\\quests.json");
+            return QuestUtils.GetQuests();
+        }
 
-            string questsJsonString = System.IO.File.ReadAllText(outputFile);
-
-            QuestResult qr = JsonSerializer.Deserialize<QuestResult>(questsJsonString);
-
-            return qr.Quests;
+        // GET: api/<QuestsController/random>
+        [HttpGet("random")]
+        public List<Quest> GetRandom()
+        {
+            return QuestUtils.GetRandomQuest();
         }
 
         // GET api/<QuestsController>/5
