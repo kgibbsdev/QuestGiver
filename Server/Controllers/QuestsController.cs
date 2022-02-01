@@ -24,7 +24,7 @@ namespace QuestGiver.Server.Controllers
 
         // GET: api/<QuestsController/random>
         [HttpGet("random")]
-        public List<Quest> GetRandom()
+        public Quest GetRandom()
         {
             return QuestUtils.GetRandomQuest();
         }
