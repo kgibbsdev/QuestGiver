@@ -38,8 +38,30 @@ namespace QuestGiver.Server.Controllers
 
         // POST api/<QuestsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Quest> Post([FromBody] Quest questBeingAdded)
         {
+            List<Quest> quests = QuestUtils.GetQuests();
+
+            var idAlreadyExists = quests.Exists(quest => quest.Id == questBeingAdded.Id);
+
+            if (idAlreadyExists)
+            {
+                return Conflict("Quest with that ID already exists!");
+            }
+            else
+            {
+                try
+                {
+                    QuestUtils.AddQuest(questBeingAdded);
+                }
+                catch(Exception ex)
+                {
+                    return StatusCode(500, $"There was a promble: {ex}");
+                }
+                
+                return Ok();
+            }
+
         }
 
         // PUT api/<QuestsController>/5
